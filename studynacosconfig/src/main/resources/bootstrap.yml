@@ -1,0 +1,39 @@
+#spring.application.name=nacosconfig
+#spring.cloud.nacos.config.server-addr=localhost:8848
+## 通过 变量扩展名的方式进行命名
+##${spring.application.name}.${file-extension.properties}
+##基于 dataid 为 yaml 的文件扩展名配置方式
+#spring.cloud.nacos.config.file-extension=yaml
+##spring.profiles.active=prod
+##profile粒度的配置
+#${spring.application.name}-${profile}.${file-extension:yaml}
+
+#spring:
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: localhost:8848
+#        namespace: e39f93ae-bcc9-4539-99b8-38b9a9054224
+#        group: DEVELOP_GROUP
+#  application:
+#    name: nacosconfig
+#  profiles:
+#    active: prod
+
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: e39f93ae-bcc9-4539-99b8-38b9a9054224
+        shared-configs[0].data-id: common.yaml
+        shared-configs[0].group: DEFAULT_GROUP
+        shared-configs[0].refresh: true
+        shared-configs[1].data-id: common-ext.yaml
+        shared-configs[1].group: REFRESH_GROUP
+        shared-configs[1].refresh: true
+        shared-configs[2].data-id: common-share.yaml
+        shared-configs[2].group: REFRESH_GROUP
+        shared-configs[2].refresh: true
+  application:
+    name: studyconfig

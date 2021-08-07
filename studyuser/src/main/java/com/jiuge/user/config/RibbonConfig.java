@@ -16,6 +16,7 @@ public class RibbonConfig {
     /**
      * 全局配置
      * 指定负载均衡策略
+     *
      * @return
      */
    /*
@@ -25,9 +26,8 @@ public class RibbonConfig {
         return new NacosRule();
     }
     */
-
-   @Bean
-   public IRule ribbonRule(){
+    @Bean
+    public IRule ribbonRule() {
         return new NacosRandomWithWeightRule();
-   }
+    }
 }

@@ -12,12 +12,14 @@ import java.util.List;
 public interface ProductService {
     /**
      * 产品信息集合
+     *
      * @return
      */
     List<ProductEntity> list();
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */

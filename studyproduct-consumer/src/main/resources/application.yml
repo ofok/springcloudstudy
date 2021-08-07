@@ -1,17 +1,17 @@
 dubbo:
   cloud:
-    # Ö¸¶¨ĞèÒª¶©ÔÄµÄ·şÎñÌá¹©·½£¬Ä¬ÈÏÖµ*£¬»á¶©ÔÄËùÓĞ·şÎñ£¬²»½¨ÒéÊ¹ÓÃ
+    # æŒ‡å®šéœ€è¦è®¢é˜…çš„æœåŠ¡æä¾›æ–¹ï¼Œé»˜è®¤å€¼*ï¼Œä¼šè®¢é˜…æ‰€æœ‰æœåŠ¡ï¼Œä¸å»ºè®®ä½¿ç”¨
     subscribed-services: springcloud-dubbo-provider-product
   protocol:
-    # dubbo Ğ­Òé
+    # dubbo åè®®
     name: dubbo
-    # dubbo Ğ­Òé¶Ë¿Ú£¨ -1 ±íÊ¾×ÔÔö¶Ë¿Ú£¬´Ó 20880 ¿ªÊ¼£©
+    # dubbo åè®®ç«¯å£ï¼ˆ -1 è¡¨ç¤ºè‡ªå¢ç«¯å£ï¼Œä» 20880 å¼€å§‹ï¼‰
     port: -1
 spring:
   application:
     name: spring-cloud-dubbo-consumer-product
   main:
-    # Spring Boot2.1¼°¸ü¸ßµÄ°æ±¾ĞèÒªÉè¶¨
+    # Spring Boot2.1åŠæ›´é«˜çš„ç‰ˆæœ¬éœ€è¦è®¾å®š
     allow-bean-definition-overriding: true
   cloud:
     nacos:

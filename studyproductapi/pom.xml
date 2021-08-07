@@ -11,6 +11,7 @@
     <artifactId>studyproductapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>studyproductapi</name>
+    <packaging>jar</packaging>
     <description>product api project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>

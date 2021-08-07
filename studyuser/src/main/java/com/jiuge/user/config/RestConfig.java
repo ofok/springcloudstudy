@@ -20,7 +20,7 @@ public class RestConfig {
     }
 
     @Bean
-    WebClient webClient(){
+    WebClient webClient() {
         return WebClient.builder().build();
     }
 

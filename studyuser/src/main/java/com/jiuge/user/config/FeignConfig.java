@@ -28,24 +28,25 @@ public class FeignConfig {
 
     /**
      * 修改契约配置，支持Feign原生的注解
+     *
      * @return
      */
 //    @Bean
 //    public Contract feignContract() {
 //        return new Contract.Default();
 //    }
-
     @Bean
-    public BasicAuthRequestInterceptor basicAuthRequestInterceptor(){
-        return new BasicAuthRequestInterceptor("jiuge","123456");
+    public BasicAuthRequestInterceptor basicAuthRequestInterceptor() {
+        return new BasicAuthRequestInterceptor("jiuge", "123456");
     }
 
     /**
      * 自定义拦截器
+     *
      * @return
      */
     @Bean
-    public FeignAuthRequestInterceptor feignAuthRequestInterceptor(){
+    public FeignAuthRequestInterceptor feignAuthRequestInterceptor() {
         return new FeignAuthRequestInterceptor();
     }
 
@@ -62,6 +63,7 @@ public class FeignConfig {
     public Decoder decoder() {
         return new JacksonDecoder();
     }
+
     @Bean
     public Encoder encoder() {
         return new JacksonEncoder();

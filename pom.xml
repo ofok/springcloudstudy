@@ -27,6 +27,8 @@
         <module>studyorder</module>
         <module>studyproduct</module>
         <module>studyproduct-consumer</module>
+        <module>studyproductapi</module>
+        <module>studynacosconfig</module>
     </modules>
     <dependencies>
         <dependency>
