@@ -8,50 +8,22 @@ spring:
       discovery:
         server-addr: localhost:8848
         namespace: 2a57e550-6295-4269-b1b4-268c46021020
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/sharekit?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-      username: root
-      password: hczxzb
-      initial-size: 10
-      max-active: 100
-      min-idle: 10
-      max-wait: 60000
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-      filter:
-        stat:
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: false
-        wall:
-          config:
-            multi-statement-allow: true
-
+  profiles:
+    active: test
 #mybatis-plus
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  #ÊµÌåÉ¨Ãè£¬¶à¸öpackageÓÃ¶ººÅ»òÕß·ÖºÅ·Ö¸ô
+  #å®ä½“æ‰«æï¼Œå¤šä¸ªpackageç”¨é€—å·æˆ–è€…åˆ†å·åˆ†éš”
   typeAliasesPackage: com.jiuge.user.*.entity
   global-config:
-    #Êı¾İ¿âÏà¹ØÅäÖÃ
+    #æ•°æ®åº“ç›¸å…³é…ç½®
     db-config:
-      #Ö÷¼üÀàĞÍ  AUTO:"Êı¾İ¿âID×ÔÔö"
+      #ä¸»é”®ç±»å‹  AUTO:"æ•°æ®åº“IDè‡ªå¢"
       id-type: AUTO
       logic-delete-value: -1
       logic-not-delete-value: 0
       banner: false
-    #Ô­ÉúÅäÖÃ
+      #åŸç”Ÿé…ç½®
     configuration:
       map-underscore-to-camel-case: true
       cache-enabled: false

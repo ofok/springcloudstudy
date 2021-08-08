@@ -18,4 +18,9 @@ public class ProductEntity implements Serializable {
     private String productType;
 
     private String productUnit;
+
+    public ProductEntity(int id, String productName) {
+        this.id = id;
+        this.productName = productName;
+    }
 }

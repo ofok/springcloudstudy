@@ -18,6 +18,9 @@ spring:
       # Nacos 服务发现与注册配置
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8090
   profiles:
     active: test
 

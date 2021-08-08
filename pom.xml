@@ -29,6 +29,7 @@
         <module>studyproduct-consumer</module>
         <module>studyproductapi</module>
         <module>studynacosconfig</module>
+        <module>studysentinel</module>
     </modules>
     <dependencies>
         <dependency>

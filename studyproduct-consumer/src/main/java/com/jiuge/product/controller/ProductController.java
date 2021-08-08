@@ -2,11 +2,14 @@ package com.jiuge.product.controller;
 
 
 import com.alibaba.cloud.dubbo.annotation.DubboTransported;
+import com.alibaba.csp.sentinel.adapter.dubbo.config.DubboAdapterGlobalConfig;
 import com.jiuge.product.service.ProductDubboFeignService;
 import com.jiuge.product.service.ProductFeignService;
 import com.product.entity.ProductEntity;
 import com.product.service.ProductService;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.rpc.AsyncRpcResult;
+import org.checkerframework.common.reflection.qual.GetConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -26,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-    @DubboReference
+    @DubboReference(mock = "com.jiuge.product.mock.ProductServiceDubboMock")
     private ProductService productService;
 
 
@@ -36,11 +40,20 @@ public class ProductController {
         return productService.findById(id);
     }
 
+    @PostConstruct
+    public void init() {
+        DubboAdapterGlobalConfig.setConsumerFallback(
+                (invoker, invocation, ex) -> AsyncRpcResult.newDefaultAsyncResult(
+                        new ProductEntity(0,"===fallback=="), invocation));
+    }
+
     @GetMapping("/list")
     public List<ProductEntity> list() {
 
         return productService.list();
     }
+
+
 
 
     @Autowired

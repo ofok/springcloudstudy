@@ -8,54 +8,32 @@ spring:
       discovery:
         server-addr: localhost:8848
         namespace: 2a57e550-6295-4269-b1b4-268c46021020
-    # ²»ÊÊÓÃribbon
+    # ä¸é€‚ç”¨ribbon
     loadbalancer:
       ribbon:
         enabled: false
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/sharekit?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-      username: root
-      password: hczxzb
-      initial-size: 10
-      max-active: 100
-      min-idle: 10
-      max-wait: 60000
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-      filter:
-        stat:
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: false
-        wall:
-          config:
-            multi-statement-allow: true
-
+    sentinel:
+      transport:
+        # æ·»åŠ sentinelçš„æ§åˆ¶å°åœ°å€
+        dashboard: 127.0.0.1:8090
+        # æŒ‡å®šåº”ç”¨ä¸Sentinelæ§åˆ¶å°äº¤äº’çš„ç«¯å£ï¼Œåº”ç”¨æœ¬åœ°ä¼šèµ·ä¸€ä¸ªè¯¥ç«¯å£å ç”¨çš„HttpServer
+        port: 8719
+  profiles:
+    active: test
 #mybatis-plus
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  #ÊµÌåÉ¨Ãè£¬¶à¸öpackageÓÃ¶ººÅ»òÕß·ÖºÅ·Ö¸ô
+  #å®ä½“æ‰«æï¼Œå¤šä¸ªpackageç”¨é€—å·æˆ–è€…åˆ†å·åˆ†éš”
   typeAliasesPackage: com.jiuge.user.*.entity
   global-config:
-    #Êı¾İ¿âÏà¹ØÅäÖÃ
+    #æ•°æ®åº“ç›¸å…³é…ç½®
     db-config:
-      #Ö÷¼üÀàĞÍ  AUTO:"Êı¾İ¿âID×ÔÔö"
+      #ä¸»é”®ç±»å‹  AUTO:"æ•°æ®åº“IDè‡ªå¢"
       id-type: AUTO
       logic-delete-value: -1
       logic-not-delete-value: 0
       banner: false
-    #Ô­ÉúÅäÖÃ
+      #åŸç”Ÿé…ç½®
     configuration:
       map-underscore-to-camel-case: true
       cache-enabled: false
@@ -64,14 +42,14 @@ mybatis-plus:
 
 order-server:
   ribbon:
-    # Ö¸¶¨Ê¹ÓÃNacosÌá¹©µÄ¸ºÔØ¾ùºâ²ßÂÔ£¨ÓÅÏÈµ÷ÓÃÍ¬Ò»¼¯ÈºµÄÊµÀı£¬»ùÓÚËæ»ú&È¨ÖØ£©
+    # æŒ‡å®šä½¿ç”¨Nacosæä¾›çš„è´Ÿè½½å‡è¡¡ç­–ç•¥ï¼ˆä¼˜å…ˆè°ƒç”¨åŒä¸€é›†ç¾¤çš„å®ä¾‹ï¼ŒåŸºäºéšæœº&æƒé‡ï¼‰
     # NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
     NFLoadBalancerRuleClassName: com.jiuge.user.rule.NacosRandomWithWeightRule
 ribbon:
   eager-load:
-    # ÅäÖÃorder-serverÊ¹ÓÃribbon¼¢¶ö¼ÓÔØ£¬¶à¸öÊ¹ÓÃ¶ººÅ·Ö¸ô
+    # é…ç½®order-serverä½¿ç”¨ribboné¥¥é¥¿åŠ è½½ï¼Œå¤šä¸ªä½¿ç”¨é€—å·åˆ†éš”
     clients: order-server
-    # ¿ªÆôribbon¼¢¶ö¼ÓÔØ
+    # å¼€å¯ribboné¥¥é¥¿åŠ è½½
     enabled: true
 logging:
   level:
@@ -81,15 +59,15 @@ logging:
 #    config:
 #      order-server:
 #        loggerLevel: FULL
-#        # Á¬½Ó³¬Ê±Ê±¼ä£¬Ä¬ÈÏ2s
+#        # è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œé»˜è®¤2s
 #        connectTimeout: 2000
-#        # ÇëÇó´¦Àí³¬Ê±Ê±¼ä£¬Ä¬ÈÏ5s
+#        # è¯·æ±‚å¤„ç†è¶…æ—¶æ—¶é—´ï¼Œé»˜è®¤5s
 #        readTimeout: 3000
 #feign:
-#  #feign Ê¹ÓÃ Apache HttpClient  ¿ÉÒÔºöÂÔ£¬Ä¬ÈÏ¿ªÆô
+#   #feign ä½¿ç”¨ Apache HttpClient  å¯ä»¥å¿½ç•¥ï¼Œé»˜è®¤å¼€å¯
 #  httpclient:
 #feign:
-#  #feign Ê¹ÓÃ okhttp
+#  #feign ä½¿ç”¨ okhttp
 #  okhttp:
 #    enabled: true
 ##    enabled: true
@@ -99,9 +77,16 @@ feign:
   compression:
     request:
       enabled: true
-      # ÅäÖÃÑ¹ËõµÄÀàĞÍ
+      # é…ç½®å‹ç¼©çš„ç±»å‹
       mime-types: text/xml,application/xml,application/json
-      #×îĞ¡Ñ¹ËõÖµ
+      # æœ€å°å‹ç¼©å€¼
       min-request-size: 2048
     response:
       enabled: true
+  sentinel:
+    enabled: true #å¼€å¯sentinelå¯¹feignçš„æ”¯æŒ é»˜è®¤false
+
+#trueå¼€å¯sentinelå¯¹resttemplateçš„æ”¯æŒï¼Œfalseåˆ™å…³é—­  é»˜è®¤true
+resttemplate:
+  sentinel:
+    enabled: true

@@ -1,11 +1,17 @@
 package com.jiuge.user.controller;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.jiuge.common.utils.MyPageUtils;
 import com.jiuge.common.utils.R;
 import com.jiuge.user.entity.UserEntity;
 import com.jiuge.user.feign.OrderFeignService;
 import com.jiuge.user.service.UserService;
+import com.jiuge.user.util.CommonBlockHandler;
+import com.jiuge.user.util.CommonFallback;
+import com.jiuge.user.util.MyBlockExceptionHandler;
+import com.jiuge.user.util.MyExceptionUtil;
+import com.sun.xml.internal.ws.handler.HandlerException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
@@ -40,6 +46,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/findOrderByUserId/{id}")
+    @SentinelResource(
+            value = "findOrderByUserId", fallback = "fallback", fallbackClass = CommonFallback.class, blockHandler = "handlerException", blockHandlerClass = CommonBlockHandler.class
+    )
     public Mono<R> findOrderByUserId(@PathVariable("id") Integer id) {
         log.info("根据userId:" + id + "查询订单信息");
         // RestTemplate调用
@@ -55,10 +64,27 @@ public class UserController {
         Mono<R> result = webClient.get().uri(url).retrieve().bodyToMono(R.class);
 
 
+        if (id == 4) {
+            throw new HandlerException("非法参数异常");
+        }
         // feign调用
         // R result = orderFeignService.findOrderByUserId(id);
 
 
+        return result;
+    }
+
+    @GetMapping("/findOrderByUserIdForRestTemplate/{id}")
+    public R findOrderByUserIdForRestTemplate(@PathVariable("id")Integer id){
+        String url = "http://order-server/order/findOrderByUserId/" + id;
+        R result = restTemplate.getForObject(url, R.class);
+        return result;
+    }
+
+    @GetMapping("/findOrderByUserIdForOpenFeign/{id}")
+    public R findOrderByUserIdForOpenFeign(@PathVariable("id")Integer id){
+        //feign调用
+        R result = orderFeignService.findOrderByUserId(id);
         return result;
     }
 
