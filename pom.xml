@@ -30,6 +30,7 @@
         <module>studyproductapi</module>
         <module>studynacosconfig</module>
         <module>studysentinel</module>
+        <module>studygateway</module>
     </modules>
     <dependencies>
         <dependency>

@@ -19,7 +19,7 @@ spring:
         # 指定应用与Sentinel控制台交互的端口，应用本地会起一个该端口占用的HttpServer
         port: 8719
   profiles:
-    active: test
+    active: dev
 #mybatis-plus
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
